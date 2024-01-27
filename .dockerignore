@@ -1,0 +1,11 @@
+# Ignore all files in the .github directory
+.github/
+
+# Ignore all .md files
+*.md
+
+# Ignore all .git files
+.git/
+
+# Ignore all .gitignore files
+.gitignore
