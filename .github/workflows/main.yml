@@ -11,7 +11,6 @@ jobs:
       packages: write # to push to ghcr.io
 
     runs-on: ubuntu-latest
-
     steps:
       - uses: actions/checkout@v4
 
@@ -24,11 +23,11 @@ jobs:
         with:
           registry: ghcr.io
           username: ${{ github.actor }}
-          password: ${{ github.token }}
+          password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Docker metadata
+      - name: Extract metadata (tags, labels) for Docker
         id: meta
-        uses: docker/metadata-action@v5
+        uses: docker/metadata-action@9ec57ed1fcdbf14dcef7dfbe97b2010124a938b7
         with:
           images: |
             LuloDev/deluge-update-pmp
@@ -41,9 +40,10 @@ jobs:
           context: ./
           file: ./Dockerfile
           builder: ${{ steps.buildx.output.name }}
-          platforms: linux/amd64,linux/arm64
-          provenance: false
+          platforms: linux/amd64
+          push: true
           labels: ${{ steps.meta.outputs.labels }}
+          tags: ${{ steps.meta.outputs.tags }}
           cache-from: |
             type=gha, scope=${{ github.ref_name }}
             type=gha, scope=${{ github.base_ref }}
