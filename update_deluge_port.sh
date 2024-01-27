@@ -7,13 +7,13 @@
 #Function to parse the active port from the deluge configuration file
 findconfiguredport()
 {
-        /bin/grep -zoP '\"listen_ports\": \[\n\K.*(?=,\n)' /config/core.conf|/bin/tr -d '\0'|/bin/xargs;
+        /bin/grep -zoP '\"listen_ports\": \[\n\K.*(?=,\n)' /config/core.conf|/usr/bin/tr -d '\0'|/usr/bin/xargs;
 }
 
 #Function which uses natpmp to determine the active port
 findactiveport()
 {
-        /usr/bin/python3 /scripts/py-natpmp/natpmp/natpmp_client.py -g 10.2.0.1 0 0 | /bin/grep -oP '(?<=public port ).*(?=,)'|/bin/xargs;
+        /usr/bin/python3 /scripts/py-natpmp/natpmp/natpmp_client.py -g 10.2.0.1 0 0 | /bin/grep -oP '(?<=public port ).*(?=,)'|/usr/bin/xargs;
 }
 
 #Execute the above functions and set variables
