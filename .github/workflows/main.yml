@@ -21,22 +21,6 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Generate release notes
-        id: release_notes
-        run: |
-          RELEASE_NOTES="$(git log $(git describe --tags --abbrev=0)..HEAD --pretty=format:"- %s")"
-          echo "::set-output name=body::$RELEASE_NOTES"
-
-      - name: Create Release
-        id: create_release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          tag_name: ${{ github.sha }}
-          release_name: Release ${{ github.sha }}
-          body: ${{ steps.release_notes.outputs.body }}
-
       - name: Login to GitHub Container Registry
         uses: docker/login-action@65b78e6e13532edd9afa3aa52ac7964289d1a9c1
         with:
@@ -60,13 +44,3 @@ jobs:
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
-
-      - name: Update release
-        uses: actions/github-script@v3
-        with:
-          github-token: ${{secrets.GITHUB_TOKEN}}
-          script: |
-            const { owner, repo } = context.repo
-            const release_id = ${{ steps.create_release.outputs.id }}
-            const body = `Docker image available at: ghcr.io/${owner}/${repo}:${{ github.sha }}\n\n${{ steps.release_notes.outputs.body }}`
-            github.repos.updateRelease({ owner, repo, release_id, body })
