@@ -1,6 +1,10 @@
 FROM lscr.io/linuxserver/deluge:latest
 LABEL maintainer="LuloDev"
 
+ENV DELUGE_PORT=58846
+ENV DELUGE_USER=admin
+ENV DELUGE_PASSWORD=deluge
+
 ## add scripts with permissions
 ADD update_deluge_port.sh /scripts/update_deluge_port.sh
 RUN chmod +x /scripts/update_deluge_port.sh

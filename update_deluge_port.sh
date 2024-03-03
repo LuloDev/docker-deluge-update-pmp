@@ -29,7 +29,7 @@ if [ ${previous_configured_port} != ${current_active_port} ]; then
         #/bin/echo "$(/bin/date '+%Y-%m-%d %H:%M:%S') Deleting previous allow rule from ufw: $(/usr/sbin/ufw delete allow ${previous_configured_port})";
  
         #Now use deluge-console to update the active configuration and wait 5 seconds for the configuration to update in the background
-		/bin/echo "$(/bin/date '+%Y-%m-%d %H:%M:%S') Updating Deluge with the new port: $(deluge-console -d 127.0.0.1 -p 58846 -U cron -P MyC0mpL3xPass status "config -s listen_ports (${current_active_port},${current_active_port})").. waiting 5 seconds for configuration to update. $(/bin/sleep 5)"; 
+		/bin/echo "$(/bin/date '+%Y-%m-%d %H:%M:%S') Updating Deluge with the new port: $(deluge-console -d 127.0.0.1 -p $DELUGE_PORT -U $DELUGE_USER -P $DELUGE_PASSWORD status "config -s listen_ports (${current_active_port},${current_active_port})").. waiting 5 seconds for configuration to update. $(/bin/sleep 5)"; 
 
         #Run function again to find the updated port in the Deluge configuration
         updated_configured_port=$(findconfiguredport);
