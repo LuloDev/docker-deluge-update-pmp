@@ -1,6 +1,17 @@
+<div align="center">
+  <a href='http://makeapullrequest.com'>
+    <img alt='PRs Welcome' src='https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=shields'/>
+  </a>
+  <img src="https://img.shields.io/github/license/lightdash/lightdash" />
+
+
 # Docker Deluge Update PMP
 
 This project contains a Docker image that is based on a Linux server and includes a cron job that runs a shell script to update port of deluge based in [Reddit Post](https://www.reddit.com/r/ProtonVPN/comments/10owypt/successful_port_forward_on_debian_wdietpi_using/)
+
+[Reportar error](https://github.com/LuloDev/docker-deluge-update-pmp/issues) · [Sugerir algo](https://github.com/LuloDev/docker-deluge-update-pmp/issues)
+
+</div>
 
 Container based in linux server [Container](https://docs.linuxserver.io/images/docker-deluge/)
 
